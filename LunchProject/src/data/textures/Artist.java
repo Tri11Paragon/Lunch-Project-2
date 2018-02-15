@@ -35,7 +35,7 @@ public class Artist {
 	public static org.newdawn.slick.TrueTypeFont f14;
 	public static Font font10;
 	public static org.newdawn.slick.TrueTypeFont f10;
-	public static String version = "V0.0.265 Alpha - Inventory Update";
+	public static String version = "V0.0.3 Alpha - Inventory/Sound Update";
 	
 	public static void BeginSession(int WIDTH, int HEIGHT){
 		Display.setTitle(version);
