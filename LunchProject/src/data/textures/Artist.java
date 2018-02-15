@@ -11,10 +11,10 @@ import java.nio.ByteBuffer;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.ImageIOImageData;
 import org.newdawn.slick.opengl.Texture;
@@ -35,14 +35,14 @@ public class Artist {
 	public static org.newdawn.slick.TrueTypeFont f14;
 	public static Font font10;
 	public static org.newdawn.slick.TrueTypeFont f10;
-	public static String version = "V0.0.254 Alpha - Inventory Update";
+	public static String version = "V0.0.265 Alpha - Inventory Update";
 	
 	public static void BeginSession(int WIDTH, int HEIGHT){
 		Display.setTitle(version);
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
 			Display.create();
-			AL.create();
+			//AL.create();
 			try {
 				Display.setIcon(new ByteBuffer[] {
 				        new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/game/icon.png")), false, false, null),
@@ -57,7 +57,9 @@ public class Artist {
 		
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
+		
 		glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
+		//GLU.gluLookAt(0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
@@ -208,6 +210,13 @@ public class Artist {
 		Texture tex=null;
 		tex = loadTexture("res/" + name + ".png", "PNG");
 		return tex;
+	}
+	
+	public static void MoveCamara(float x, float y, float toX, float toY){
+		GLU.gluLookAt(x+toX, y+toY, 0, x+toX, y+toY, 0.0f, 0f, 1f, 0f);
+	}
+	public static void lookAt(float x, float y){
+		GLU.gluLookAt(x, y, 0, x, y, 0.0f, 0f, 1f, 0f);
 	}
 	
 }

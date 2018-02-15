@@ -5,7 +5,6 @@ import data.inventory.PlayerInventory;
 import data.objects.blocks.Blocks;
 import data.objects.map.Map;
 import data.objects.player.Player;
-import data.sound.SoundManager;
 import data.textures.Artist;
 import data.textures.TextureData;
 
@@ -35,7 +34,6 @@ public class Boot {
 		
 		PlayerInventory inv = new PlayerInventory(5,5);
 		Player player = new Player(new TextureData(GameRegistry.playerTexture, "player"), 0,0, inv);
-		//inv.setOpen(true);
 		
 		while(!Display.isCloseRequested()){
 			Clock.update();
