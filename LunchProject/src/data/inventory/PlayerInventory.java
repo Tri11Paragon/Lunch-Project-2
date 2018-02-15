@@ -118,7 +118,7 @@ public class PlayerInventory {
 								int sd = slots[i].getStack().getStackSize() + stack.getStackSize();
 								int sdd = sd - slots[i].getStack().getMaxStackSize();
 								slots[i].getStack().setStackSize(slots[i].getStack().getMaxStackSize());
-								if (true) {
+								if (true) { // Redundant if statement.
 									for (int d=0; d < slots.length;d++) {
 										if (slots[i+d].getStack().getBlock() != null) {
 											//|| slots[i].getStack().getBlock().getTexture() == stack.getBlock().getTexture()

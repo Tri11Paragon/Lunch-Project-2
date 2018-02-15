@@ -38,6 +38,24 @@ public class Slot {
 				    if (!Mouse.getEventButtonState()) {
 				        if (Mouse.getEventButton() == 0) {
 				        	if(stack != null && PlayerSelf.stackInHand != null){
+				        		/*
+				        		 * I just stole this form the inventory code. I 50% know why it works but it does.
+				        		 * 
+				        		 */
+				        		try {
+					        		if (PlayerSelf.stackInHand.getBlock() == stack.getBlock() || PlayerSelf.stackInHand.getBlock().getTexture() == stack.getBlock().getTexture()) {
+										if (PlayerSelf.stackInHand.getStackSize() + stack.getStackSize() <= PlayerSelf.stackInHand.getMaxStackSize()) {
+											stack.setStackSize(PlayerSelf.stackInHand.getStackSize() + stack.getStackSize());
+											PlayerSelf.stackInHand = null;
+											return;
+										} else {
+											stack.setStackSize(stack.getMaxStackSize());
+											return;
+										}
+					        		}
+				        		} catch(Exception e) {
+				        			
+				        		}
 								ItemStack tempItem = PlayerSelf.stackInHand;
 								PlayerSelf.stackInHand =stack;
 								stack = tempItem;
