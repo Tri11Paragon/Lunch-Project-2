@@ -50,6 +50,7 @@ public class Map {
 			return new BlockAir(new Vector2f(x* Artist.BlockSize, y * Artist.BlockSize));
 		}
 	}
+	
 	public static void startGen() {
 		int xStartG = 0;
 		int yStartG = 5;

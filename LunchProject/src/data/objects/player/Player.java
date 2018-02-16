@@ -14,7 +14,7 @@ import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import data.helpers.Clock;
-import data.helpers.Facing;
+import data.helpers.enums.Facing;
 import data.inventory.ItemStack;
 import data.inventory.PlayerInventory;
 import data.main.Boot;
@@ -29,6 +29,7 @@ import data.objects.blocks.Blocks;
 import data.objects.map.Map;
 import data.objects.physics.BoundingBox;
 import data.sound.SoundPlayer;
+import data.sound.Sounds;
 import data.textures.Artist;
 import data.textures.TextureData;
 
@@ -43,12 +44,9 @@ public class Player extends TypeObject {
 	private Facing facing = Facing.Up;
 	private PlayerInventory inv;
 	
-	private SoundPlayer wavEffectDig;
-	
 	private int[] direction = new int[3];
 	public int recheckCollision = 0;
 	
-	public static Vector2f position;
 	
 	
 	public Player(TextureData texture, float x, float y, PlayerInventory inv) {
@@ -61,7 +59,6 @@ public class Player extends TypeObject {
 		canMoveIn[2] = true;
 		canMoveIn[3] = true;
 		this.inv = inv;
-		wavEffectDig = new SoundPlayer("Mine-blasts-short");
 	}
 	
 	public void draw() {
@@ -161,7 +158,7 @@ public class Player extends TypeObject {
 				}
 			}
 		}
-		if (Mouse.isButtonDown(0) && !inv.isOpen()) {
+		if (Mouse.isButtonDown(0) && !inv.isOpen() && PlayerSelf.stackInHand == null) {
 			Vector2f posd = new Vector2f((float)Math.floor(Mouse.getX()),(float) Math.floor((Boot.HEIGHT - Mouse.getY() - 1)));
 			if (!new Rectangle(Boot.WIDTH/3-20,Boot.HEIGHT-50,285,70).contains(posd.x, posd.y)) {
 				i++;
@@ -174,7 +171,19 @@ public class Player extends TypeObject {
 					} catch(Exception e) {}
 					if (returnedVal > 0) {return;}
 					try {
-						//wavEffectDig.playSound(0.5f, 0.1f);
+						switch(Map.getBlock(pos.x, pos.y).getMaterial()) {
+						case ROCK:
+							SoundPlayer.playSoundRandomStatic(Sounds.digging_pick, this, new Vector2f(pos.x*Artist.BlockSize,pos.y*Artist.BlockSize), 1);
+							break;
+						case WOOD:
+							break;
+						case GROUND:
+							SoundPlayer.playSoundRandomStatic(Sounds.digging_dirt, this, new Vector2f(pos.x*Artist.BlockSize,pos.y*Artist.BlockSize), 0.5f);
+							break;
+						default:
+							SoundPlayer.playSoundRandomStatic(Sounds.digging_pick, this, new Vector2f(pos.x*Artist.BlockSize,pos.y*Artist.BlockSize), 1);
+							break;
+						}
 					} catch(Exception e) {}
 					Map.setBlock(pos.x, pos.y, new BlockAir(new Vector2f(pos.x, pos.y)));
 				}
@@ -187,6 +196,20 @@ public class Player extends TypeObject {
 				}
 			}
 		}
+		// Code does not work for now.
+		/*if (Mouse.isButtonDown(0) && !inv.isOpen() && PlayerSelf.stackInHand != null) {
+			Vector2f posd = new Vector2f((float)Math.floor(Mouse.getX()),(float) Math.floor((Boot.HEIGHT - Mouse.getY() - 1)));
+			if (Map.getBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize) == Blocks.air || Map.getBlock(posd.x, posd.y).getTexture() == Blocks.air.getTexture()) {
+				Map.setBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize, PlayerSelf.stackInHand.getBlock());
+				if (PlayerSelf.stackInHand.getStackSize() - 1 > 0) {
+					PlayerSelf.stackInHand.setStackSize(PlayerSelf.stackInHand.getStackSize() -1);
+				} else {
+					PlayerSelf.stackInHand = null;
+				}
+			} else {
+				return;
+			}
+		}*/
 	}
 	private int resetDir(int dir) {
 		return (dir != 0 || isColliding) ? 0 : dir;

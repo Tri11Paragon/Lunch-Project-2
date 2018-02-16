@@ -2,6 +2,7 @@ package data.objects.blocks;
 
 import org.lwjgl.util.vector.Vector2f;
 
+import data.helpers.enums.Material;
 import data.main.GameRegistry;
 import data.objects.physics.BoundingBox;
 import data.textures.Artist;
@@ -10,11 +11,11 @@ import data.textures.TextureData;
 public class BlockGrass extends Block {
 
 	public BlockGrass(Vector2f position) {
-		super(new TextureData(GameRegistry.grassTexture, "grass"), position,
+		super(Material.GROUND, new TextureData(GameRegistry.grassTexture, "grass"), position,
 				new BoundingBox(position.x, position.y, Artist.BlockSize, Artist.BlockSize));
 	}
 	public BlockGrass() {
-		super(new TextureData(GameRegistry.grassTexture, "grass"), null);
+		super(Material.GROUND, new TextureData(GameRegistry.grassTexture, "grass"), null);
 	}
 	
 	public Block getBlockDropped() {

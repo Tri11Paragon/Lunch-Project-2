@@ -2,6 +2,7 @@ package data.objects.blocks;
 
 import org.lwjgl.util.vector.Vector2f;
 
+import data.helpers.enums.Material;
 import data.objects.TypeObject;
 import data.objects.physics.BoundingBox;
 import data.textures.Artist;
@@ -14,22 +15,26 @@ public class Block extends TypeObject {
 	 */
 	public BoundingBox box = new BoundingBox(-50, -50, Artist.BlockSize, Artist.BlockSize);
 	public boolean useBuundingBox;
+	Material material;
 	
-	public Block(TextureData texture, Vector2f position) {
+	public Block(Material material, TextureData texture, Vector2f position) {
 		this.texture = texture;
 		this.position = position;
 		useBuundingBox = false;
+		this.material = material;
 	}
-	public Block(TextureData texture, Vector2f position, boolean useBuundingBox) {
+	public Block(Material material, TextureData texture, Vector2f position, boolean useBuundingBox) {
 		this.texture = texture;
 		this.position = position;
 		this.useBuundingBox = useBuundingBox;
+		this.material = material;
 	}
-	public Block(TextureData texture, Vector2f position, BoundingBox box) {
+	public Block(Material material, TextureData texture, Vector2f position, BoundingBox box) {
 		this.texture = texture;
 		this.position = position;
 		this.box = box;
 		useBuundingBox=true;
+		this.material = material;
 	}
 	
 	/**
@@ -59,6 +64,12 @@ public class Block extends TypeObject {
 	 */
 	public void onGPU() {
 		
+	}
+	public Material getMaterial() {
+		return material;
+	}
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 	
 }

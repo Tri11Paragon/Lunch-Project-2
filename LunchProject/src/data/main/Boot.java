@@ -5,6 +5,7 @@ import data.inventory.PlayerInventory;
 import data.objects.blocks.Blocks;
 import data.objects.map.Map;
 import data.objects.player.Player;
+import data.sound.Sounds;
 import data.textures.Artist;
 import data.textures.TextureData;
 
@@ -28,6 +29,7 @@ public class Boot {
 		Clock.startTime = Sys.getTime();
 		Artist.BeginSession(WIDTH, HEIGHT);
 		GameRegistry.setupTextures();
+		Sounds.init();
 		Blocks.setup();
 		Map.startGen();
 		thread();

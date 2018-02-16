@@ -1,10 +1,6 @@
 package data.inventory;
 
-import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.opengl.Texture;
-
 import data.objects.blocks.Block;
-import data.textures.TextureData;
 
 public class ItemStack {
 	
@@ -27,11 +23,11 @@ public class ItemStack {
 		this.stackSize = stackSize;
 		this.maxStackSize = 128;
 	}
-	public ItemStack(Texture texture, int stackSize) {
-		this.block = new Block(new TextureData(texture, "n"), new Vector2f(0,0));
+	/*public ItemStack(Texture texture, int stackSize) {
+		this.block = new Block(Material.ROCK, new TextureData(texture, "n"), new Vector2f(0,0));
 		this.stackSize = stackSize;
 		this.maxStackSize = 128;
-	}
+	}*/
 	public int getStackSize() {
 		return stackSize;
 	}
