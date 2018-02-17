@@ -20,6 +20,7 @@ import data.inventory.PlayerInventory;
 import data.main.Boot;
 import data.main.GameRegistry;
 import data.objects.TypeObject;
+import data.objects.blocks.Block;
 import data.objects.blocks.BlockAir;
 import data.objects.blocks.BlockDirt;
 import data.objects.blocks.BlockGrass;
@@ -62,7 +63,7 @@ public class Player extends TypeObject {
 	}
 	
 	public void draw() {
-		Artist.drawQuadTexture(this.texture.getTexture(), position.x, position.y, 32, 32);
+		Artist.drawQuadTextureRaw(this.texture.getTexture(), position.x, position.y, 32, 32);
 	}
 	
 	public void updateCollision(BoundingBox box) {
@@ -196,20 +197,27 @@ public class Player extends TypeObject {
 				}
 			}
 		}
-		// Code does not work for now.
-		/*if (Mouse.isButtonDown(0) && !inv.isOpen() && PlayerSelf.stackInHand != null) {
-			Vector2f posd = new Vector2f((float)Math.floor(Mouse.getX()),(float) Math.floor((Boot.HEIGHT - Mouse.getY() - 1)));
-			if (Map.getBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize) == Blocks.air || Map.getBlock(posd.x, posd.y).getTexture() == Blocks.air.getTexture()) {
-				Map.setBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize, PlayerSelf.stackInHand.getBlock());
-				if (PlayerSelf.stackInHand.getStackSize() - 1 > 0) {
-					PlayerSelf.stackInHand.setStackSize(PlayerSelf.stackInHand.getStackSize() -1);
+		try {
+			if (Mouse.isButtonDown(1) && !inv.isOpen() && PlayerSelf.stackInHand != null) {
+				Vector2f posd = new Vector2f((float)Math.floor(Mouse.getX()),(float) Math.floor((Boot.HEIGHT - Mouse.getY() - 1)));
+				if (Map.getBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize) == Blocks.air || Map.getBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize).getTexture() == Blocks.air.getTexture()) {
+					int firstX = (int) (posd.x/Artist.BlockSize);
+					int firstY = (int) (posd.y/Artist.BlockSize);
+					float posXD = firstX * Artist.BlockSize;
+					float posYD = firstY * Artist.BlockSize;
+					Map.setBlock(posd.x/Artist.BlockSize, posd.y/Artist.BlockSize, new Block(PlayerSelf.stackInHand.getBlock().getMaterial(), PlayerSelf.stackInHand.getBlock().getTextureData(), new Vector2f(posXD, posYD)));
+					if (PlayerSelf.stackInHand.getStackSize() - 1 > 0) {
+						PlayerSelf.stackInHand.setStackSize(PlayerSelf.stackInHand.getStackSize() -1);
+						return;
+					} else {
+						PlayerSelf.stackInHand = null;
+						return;
+					}
 				} else {
-					PlayerSelf.stackInHand = null;
+					return;
 				}
-			} else {
-				return;
 			}
-		}*/
+		} catch (Exception e) {}
 	}
 	private int resetDir(int dir) {
 		return (dir != 0 || isColliding) ? 0 : dir;

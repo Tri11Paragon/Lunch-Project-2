@@ -5,6 +5,7 @@ import data.inventory.PlayerInventory;
 import data.objects.blocks.Blocks;
 import data.objects.map.Map;
 import data.objects.player.Player;
+import data.sound.MusicPlayer;
 import data.sound.Sounds;
 import data.textures.Artist;
 import data.textures.TextureData;
@@ -23,6 +24,7 @@ public class Boot {
 	private static float deltaThreadPhy;
 	
 	private static float threadPhyFps = 0;
+	public static Player player;
 	
 	public static void main(String[] args) {
 		Game.startup();
@@ -30,19 +32,24 @@ public class Boot {
 		Artist.BeginSession(WIDTH, HEIGHT);
 		GameRegistry.setupTextures();
 		Sounds.init();
+		MusicPlayer.init();
 		Blocks.setup();
 		Map.startGen();
 		thread();
 		
 		PlayerInventory inv = new PlayerInventory(5,5);
 		Player player = new Player(new TextureData(GameRegistry.playerTexture, "player"), 0,0, inv);
+		Boot.player = player;
 		
 		while(!Display.isCloseRequested()){
 			Clock.update();
 			required();
+			Artist.drawQuadTextureRaw(GameRegistry.skybox[2], 0, 0, WIDTH, HEIGHT);
+			//Artist.drawQuadTexture(GameRegistry.skybox[1], 0, 0, WIDTH, 300);
 			Map.Draw();
 			Map.updateBlocks();
 			inv.updateSlots();
+			MusicPlayer.update();
 			
 			brett(player);
 			logan();

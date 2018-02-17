@@ -29,6 +29,7 @@ public class GameRegistry {
 	public static Texture inventoryBackground;
 	public static Texture hotbar;
 	public static Texture slot;
+	public static Texture[] skybox = new Texture[12];
 
 	/**
 	 * TODO: Add texture atlas.
@@ -55,6 +56,18 @@ public class GameRegistry {
 		inventoryBackground = Artist.quickLoad("inventoryBackground");
 		hotbar = Artist.quickLoad("hotbar");
 		slot = Artist.quickLoad("slotBackground");
+		skybox[0] = Artist.quickLoad("skyboxes/back");
+		skybox[1] = Artist.quickLoad("skyboxes/bottom");
+		skybox[2] = Artist.quickLoad("skyboxes/front");
+		skybox[3] = Artist.quickLoad("skyboxes/left");
+		skybox[4] = Artist.quickLoad("skyboxes/right");
+		skybox[5] = Artist.quickLoad("skyboxes/top");
+		skybox[6] = Artist.quickLoad("skyboxes/nightBack");
+		skybox[7] = Artist.quickLoad("skyboxes/nightBottom");
+		skybox[8] = Artist.quickLoad("skyboxes/nightFront");
+		skybox[9] = Artist.quickLoad("skyboxes/nightLeft");
+		skybox[10] = Artist.quickLoad("skyboxes/nightRight");
+		skybox[11] = Artist.quickLoad("skyboxes/nightTop");
 		
 		registerTexture(nullTexture, "null");
 		registerTexture(air, "air");

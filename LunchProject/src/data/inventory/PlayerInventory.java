@@ -8,7 +8,6 @@ import org.newdawn.slick.Color;
 import data.main.Boot;
 import data.main.Game;
 import data.main.GameRegistry;
-import data.objects.blocks.Blocks;
 import data.objects.player.PlayerSelf;
 import data.textures.Artist;
 
@@ -29,8 +28,8 @@ public class PlayerInventory {
 			}
 		}
 		isOpen = false;
-		setItemToNullInventory(new ItemStack(Blocks.ironOre,1),0);
-		setItemToNullInventory(new ItemStack(Blocks.dirt, 1),1);
+		//setItemToNullInventory(new ItemStack(Blocks.ironOre,1),0);
+		//setItemToNullInventory(new ItemStack(Blocks.dirt, 1),1);
 		bar = new HotBar();
 	}
 

@@ -4,14 +4,13 @@ package data.objects.map;
 import org.lwjgl.util.vector.Vector2f;
 
 import data.helpers.LoganHelper;
-import data.helpers.Maths;
 import data.main.Boot;
 import data.objects.blocks.Block;
 import data.objects.blocks.BlockAir;
 import data.objects.blocks.BlockDirt;
 import data.objects.blocks.BlockGrass;
-import data.objects.blocks.BlockIronOre;
 import data.objects.blocks.BlockStone;
+import data.objects.blocks.Blocks;
 import data.objects.player.Player;
 import data.textures.Artist;
 
@@ -70,13 +69,14 @@ public class Map {
 				setBlock(i,j,new BlockStone(new Vector2f(Artist.BlockSize*i, Artist.BlockSize*j)));
 			}
 		}
-		for (int i =0+xStartG;i<Boot.WIDTH/Artist.BlockSize+xStartG;i++){
+		/*for (int i =0+xStartG;i<Boot.WIDTH/Artist.BlockSize+xStartG;i++){
 			for (int j=yStartG+4;j<1+yStartG+31;j++) {
 				if (Maths.randInt(0, 20) == 2) {
 					setBlock(i,j,new BlockIronOre(new Vector2f(i*Artist.BlockSize,j*Artist.BlockSize)));
 				}
 			}
-		}
+		}*/
+		WorldGenerator.generateRandom(Blocks.ironOre, 0, 20, yStartG+4, yStartG+31);
 	}
 	
 	public static void updateCollision(Player player) {
